@@ -31,4 +31,26 @@ public class MyCompositeKeyEmbeddable implements Serializable {
     public String toString() {
         return String.format("<tr><td>%s</td><td>%s</td></tr>", someLocalDate, someLocalDateTime);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MyCompositeKeyEmbeddable that = (MyCompositeKeyEmbeddable) o;
+
+        if (someLocalDate != null ? !someLocalDate.equals(that.someLocalDate) : that.someLocalDate != null)
+            return false;
+        if (someLocalDateTime != null ? !someLocalDateTime.equals(that.someLocalDateTime) : that.someLocalDateTime != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = someLocalDateTime != null ? someLocalDateTime.hashCode() : 0;
+        result = 31 * result + (someLocalDate != null ? someLocalDate.hashCode() : 0);
+        return result;
+    }
 }
